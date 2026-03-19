@@ -44,7 +44,7 @@ func (s *Server) EndTimer(w http.ResponseWriter, req *http.Request) {
 		s.timerStartTime = time.Time{}
 		http.Redirect(w, req, "/api/timer/current", http.StatusSeeOther)
 	} else {
-		msg := ("hmmm you shouldnt be watching rn with timer??\n")
+		msg := ("hmmm you shouldnt be watching rn w/o timer?\n")
 		w.Write([]byte(msg))
 	}
 }
