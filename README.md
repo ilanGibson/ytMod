@@ -10,5 +10,5 @@ simple timer to interactive with via curl for tracking yt watch time day to day
 - /bonus to add time to daily allotment
 
 this project serves as an internal tool primarily for my personal use to reduce/track yt usage
-a simple 'go run main' cmd to start server and curl requests from their to start tracking
+a simple 'go run main' cmd to start server and curl requests from there to start tracking
 thanks
