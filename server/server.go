@@ -58,5 +58,5 @@ func (s *Server) AddBonusAllotment(w http.ResponseWriter, req *http.Request) {
 		w.Write([]byte("bonus time was not added. only numbers accepted. please try again\n"))
 	}
 
-	s.dailyAllotment += time.Duration(bonus)
+	s.dailyAllotment += (time.Duration(bonus) * time.Hour)
 }
