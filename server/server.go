@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -25,7 +26,7 @@ func (s *Server) GetCurrentWatchTime(w http.ResponseWriter, req *http.Request) {
 }
 
 func (s *Server) GetRemainingWatchTime(w http.ResponseWriter, req *http.Request) {
-	msg := fmt.Sprintf("today you have %v remaining", (s.dailyAllotment - s.totalWatchTime))
+	msg := fmt.Sprintf("today you have %v remaining\n", (s.dailyAllotment - s.totalWatchTime))
 	w.Write([]byte(msg))
 }
 
@@ -43,7 +44,7 @@ func (s *Server) EndTimer(w http.ResponseWriter, req *http.Request) {
 		s.timerStartTime = time.Time{}
 		http.Redirect(w, req, "/api/timer/current", http.StatusSeeOther)
 	} else {
-		msg := ("hmmm you shouldnt be watching rn with timer??")
+		msg := ("hmmm you shouldnt be watching rn with timer??\n")
 		w.Write([]byte(msg))
 	}
 }
@@ -52,7 +53,10 @@ func (s *Server) AddBonusAllotment(w http.ResponseWriter, req *http.Request) {
 	body, _ := (io.ReadAll(req.Body))
 	defer req.Body.Close()
 
-	fmt.Println(string(body))
-	// use strconv.Atoi
-	// may need regex to validate
+	bonus, err := strconv.Atoi(string(body))
+	if err != nil {
+		w.Write([]byte("bonus time was not added. only numbers accepted. please try again\n"))
+	}
+
+	s.dailyAllotment += time.Duration(bonus)
 }
